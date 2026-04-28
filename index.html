@@ -7,20 +7,30 @@
             font-family: arial;
         }
         h1 {
-            align: center;
+            text-align: center;
             text-weight: 3px;
         }
         input {
             margin-left: 15px;
             background-color: white;
             border-radius: 10px;
+            height: 25px;
+            width: 100px;
+        }
+        #output {
+            margin-left: 15px;
+        }
+        button {
+            background-color: black;
+            margin: 5px;
+            border-radius: 10px
         }
     </style>
 </head>
 <body>
     <h1>enc0der</h1>
-    <input type="text" id="input" placeholder="Enter text">
-    <button onclick="encode()">Encode</button><button onclick="decode()">Decode</button>
+    <p><input type="text" id="input" placeholder="Enter text">
+    <button onclick="encode()">Encode</button><button onclick="decode()">Decode</button></p>
     <code><div id="output"></div></code>
 
     <script>
