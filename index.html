@@ -1,45 +1,171 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>enc0dr</title>
     <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent: #646cff;
+            --accent-hover: #535bf2;
+            --border: #404040;
+            --input-bg: #333333;
+        }
+
         body {
-            font-family: arial;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
         h1 {
-            text-align: center;
-            text-weight: 3px;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
         }
-        input {
-            background-color: white;
-            border-radius: 10px;
-            height: 25px;
-            align: center;
-            text-align: center;
-            width: 200px;
+
+        .input-group {
+            margin-bottom: 1.5rem;
         }
-        #output {
-            margin-left: 15px;
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
         }
+
+        input[type="text"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.2);
+        }
+
+        input[type="text"]::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
         button {
-            background-color: black;
-            margin: 5px;
-            border-radius: 10px;
-            height: 25px;
-            width: 75px;
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
             color: white;
-            align: center;
-            text-align: center;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-encode {
+            background-color: var(--accent);
+        }
+
+        .btn-encode:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-decode {
+            background-color: #404040;
+        }
+
+        .btn-decode:hover {
+            background-color: #505050;
+        }
+
+        .output-section {
+            background-color: var(--input-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            word-break: break-all;
+        }
+
+        #output {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            width: 100%;
+            text-align: left;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>enc0der</h1>
-    <div align="center">
-    <p><input type="text" id="input" placeholder="Enter text"/>
-    <br>
-    <button onclick="encode()">Encode</button><button onclick="decode()">Decode</button></p></div>
-    <code><div align="center" id="output"></div></code>
+    <div class="container">
+        <h1>enc0dr</h1>
+        
+        <div class="input-group">
+            <input type="text" id="input" placeholder="Enter text to encode or decode" />
+        </div>
+        
+        <div class="button-group">
+            <button class="btn-encode" onclick="encode()">Encode</button>
+            <button class="btn-decode" onclick="decode()">Decode</button>
+        </div>
+        
+        <div class="output-section">
+            <div id="output"></div>
+        </div>
+    </div>
 
     <script>
         function encode() {
@@ -50,7 +176,6 @@
                 const char = input[i];
                 const code = input.charCodeAt(i);
 
-            
                 if (code >= 97 && code <= 122) {
                     output += String.fromCharCode(((code - 97 + 1) % 26) + 97);
                 }
@@ -64,6 +189,7 @@
             
             document.getElementById('output').textContent = output;
         }
+        
         function decode() {
             const input = document.getElementById('input').value;
             let output = '';
@@ -72,7 +198,6 @@
                 const char = input[i];
                 const code = input.charCodeAt(i);
 
-            
                 if (code >= 97 && code <= 122) {
                     output += String.fromCharCode(((code - 97 - 1) % 26) + 97);
                 }
