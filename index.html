@@ -2,11 +2,26 @@
 <html>
 <head>
     <title>enc0dr</title>
+    <style>
+        body {
+            font-family: arial;
+        }
+        h1 {
+            align: center;
+            text-weight: 3px;
+        }
+        input {
+            margin-left: 15px;
+            background-color: white;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
+    <h1>enc0der</h1>
     <input type="text" id="input" placeholder="Enter text">
     <button onclick="encode()">Encode</button><button onclick="decode()">Decode</button>
-    <div id="output"></div>
+    <code><div id="output"></div></code>
 
     <script>
         function encode() {
