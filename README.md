@@ -1,2 +1,4 @@
 # enc0dr
-Encode/decide text
+Encode/decode text
+
+BE CAREFUL, THIS IS **NOT** SECURE AT ALL
