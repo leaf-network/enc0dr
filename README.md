@@ -1,4 +1,4 @@
 # enc0dr
 Encode/decode text
 
-BE CAREFUL, THIS IS **NOT** SECURE AT ALL
+Give output + secret you used to the person you want for it to decode
