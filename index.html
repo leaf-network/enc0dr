@@ -188,11 +188,13 @@
     </div>
 
     <script>
+    //ici commence la fonction d'encodage et metez des commentaires band de fous L.
         const ITERATIONS = 1_000_000;
         const enc = new TextEncoder();
         const dec = new TextDecoder();
 
-        async function deriveKey(passphrase, salt) {
+        async function deriveKey(passphrase, salt) 
+        {
             const keyMaterial = await crypto.subtle.importKey(
                 'raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']
             );
@@ -222,7 +224,7 @@
         function setBusy(on) {
             document.querySelectorAll('button').forEach(b => b.disabled = on);
         }
-
+        //fonction d'encodage
         async function encode() {
             const input = document.getElementById('input').value;
             const pass  = document.getElementById('passInput').value;
@@ -230,7 +232,8 @@
             if (!pass)  return setOutput('Enter a password.', true);
 
             setBusy(true);
-            try {
+            try 
+            {
                 const salt = crypto.getRandomValues(new Uint8Array(32));
                 const iv   = crypto.getRandomValues(new Uint8Array(12));
                 const key  = await deriveKey(pass, salt);
@@ -241,13 +244,15 @@
                 payload.set(iv, 32);
                 payload.set(new Uint8Array(ct), 44);
                 setOutput(toBase64(payload.buffer));
-            } catch (e) {
+            }
+            catch (e) {
                 setOutput('Encryption error: ' + e.message, true);
-            } finally {
+            }
+            finally {
                 setBusy(false);
             }
         }
-
+        //fonction de decodage
         async function decode() {
             const input = document.getElementById('input').value.trim();
             const pass  = document.getElementById('passInput').value;
